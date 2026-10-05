@@ -7,7 +7,7 @@ workbook that describes the plate). It gives you back:
 
 - a Prism project (`.prism`) with one data sheet per ligand / concentration, an equilibrium table per ligand, and the
   nonlinear fits Prism applies to them;
-- an Excel workbook with the equilibrium tables, a **Kinetic KDs** tab (per-fit-row KDs with an Include switch, formula-driven
+- an Excel workbook (`Results.xlsx`) with the equilibrium tables, a **Kinetic KDs** tab (per-fit-row KDs with an Include switch, formula-driven
   summaries) and a **KD summary** tab (equilibrium KD from the EC50 fit next to the mean per-row kinetic KD, in nM);
 - an HTML QC report: file mapping, time grids, CSV-vs-raw agreement, hook effects, equilibrium and kinetic fit checks.
 
@@ -28,7 +28,7 @@ bli2prism workbook examples/demo_binder_screen
 bli2prism qc       examples/demo_binder_screen
 ```
 
-Outputs land in `examples/demo_binder_screen/rebuild/`. Without installing: `python3 -m bli2prism ...` from the repo root.
+Outputs land in `examples/demo_binder_screen/rebuild/`: `Demo binding experiment.prism`, `Results.xlsx` and `qc_report.html`. Without installing: `python3 -m bli2prism ...` from the repo root.
 
 ## Your own experiment
 
@@ -55,7 +55,7 @@ with the ligand sensors, several ligands stacked down one sensor column, and ren
 |---|---|
 | `draft` | write the setup workbook for a run folder |
 | `build` | write the Prism project (`-n` concentrations, `--no-template`, `--blank`, `-t template`, `-o out`) |
-| `workbook` | write the Excel workbook |
+| `workbook` | write `Results.xlsx` (`-o` to name it) |
 | `qc` | write the HTML QC report |
 | `link-proteins` | make the Proteins tab follow the plate map's roles: Role column, desired concentration and total volume by role |
 | `upgrade`, `fix-contents` | repair a setup workbook made by an older version or edited by hand |

@@ -84,14 +84,14 @@ def test_demo_run_outcome():
     import os
     path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                         "examples", "demo_binder_screen", "kineticanalysistableresults.csv")
-    t = K.build_table(K.read_fit_rows(path), ["Binder A", "Binder B"], ["Target X", "Target X/Partner Z", "Partner Z"])
+    t = K.build_table(K.read_fit_rows(path), ["Binder A", "Binder B"], ["Analyte X", "Analyte Y", "Analyte Z"])
     assert len(t) == 48
 
     def kds(lig, a):
         return [c["kd_M"] * 1e9 for c in t if c["ligand"] == lig and c["analyte"] == a and c["status"] == "used"]
-    assert kds("Binder A", "Partner Z") == []                           # never binds: every row censored
-    assert all(c["status"] == "excluded" for c in t if c["ligand"] == "Binder A" and c["analyte"] == "Partner Z")
-    b = kds("Binder B", "Target X")
+    assert kds("Binder A", "Analyte Z") == []                           # never binds: every row censored
+    assert all(c["status"] == "excluded" for c in t if c["ligand"] == "Binder A" and c["analyte"] == "Analyte Z")
+    b = kds("Binder B", "Analyte X")
     assert len(b) >= 4 and 40 < sum(b) / len(b) < 60                    # simulated KD 50 nM
     assert not any(c["flagged"] for c in t)
 

@@ -26,6 +26,7 @@ def maker():
 @pytest.fixture(scope="module")
 def regenerated(maker, tmp_path_factory):
     d = str(tmp_path_factory.mktemp("example"))
+    shutil.copy(os.path.join(EXAMPLE, "bli2prism_setup.xlsx"), d)          # the generator's input
     maker.make(d)
     return d
 
@@ -44,13 +45,13 @@ def test_the_example_runs_end_to_end_and_recovers_the_simulated_constants(regene
     for cmd in ("build", "workbook", "qc"):
         code, out, err = run_cli(cmd, d)
         assert code == 0, (cmd, out, err)
-    ws = openpyxl.load_workbook(os.path.join(d, "rebuild", "workbook.xlsx"), data_only=True)["KD summary"]
+    ws = openpyxl.load_workbook(os.path.join(d, "rebuild", "Results.xlsx"), data_only=True)["KD summary"]
     kd = {(ws.cell(r, 1).value, ws.cell(r, 2).value): ws.cell(r, 7).value for r in range(6, 12)}
-    truth = {("Binder B", "Target X"): 50, ("Binder B", "Target X/Partner Z complex"): 20,
-             ("Binder B", "Partner Z"): 2000}
+    truth = {("Binder B", "Analyte X"): 50, ("Binder B", "Analyte Y"): 20,
+             ("Binder B", "Analyte Z"): 2000}
     for pair, nm in truth.items():
         assert kd[pair] == pytest.approx(nm, rel=0.15), pair           # mean per-row kinetic KD, nM
-    assert kd[("Binder A", "Partner Z")] == "n/a"                      # the non-binder has no usable kinetic row
+    assert kd[("Binder A", "Analyte Z")] == "n/a"                      # the non-binder has no usable kinetic row
 
 
 

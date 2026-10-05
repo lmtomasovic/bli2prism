@@ -31,7 +31,7 @@ def cmd_workbook(args):
     import os
     from .workbook import build_workbook
     from .rebuild import find_inputs
-    out = args.out or os.path.join(args.folder, "rebuild", "workbook.xlsx")
+    out = args.out or os.path.join(args.folder, "rebuild", "Results.xlsx")
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     try:
         setup, results = find_inputs(args.folder, args.setup)
@@ -180,10 +180,10 @@ def main(argv=None):
     bd.add_argument("-o", "--out", help="output .prism (default: <folder>/rebuild/build.prism)")
     bd.set_defaults(func=cmd_build)
 
-    wk = sub.add_parser("workbook", help="write the Excel workbook (Equilibrium tabs + Kinetic KDs)")
+    wk = sub.add_parser("workbook", help="write the Excel results workbook (Equilibrium tabs, Kinetic KDs, KD summary)")
     wk.add_argument("folder")
     wk.add_argument("-s", "--setup", help="workbook holding the Setup sheet (default: the .xlsx in FOLDER)")
-    wk.add_argument("-o", "--out", help="output .xlsx (default: <folder>/rebuild/workbook.xlsx)")
+    wk.add_argument("-o", "--out", help="output .xlsx (default: <folder>/rebuild/Results.xlsx)")
     wk.set_defaults(func=cmd_workbook)
 
     qc = sub.add_parser("qc", help="write an HTML QC report for the run")
