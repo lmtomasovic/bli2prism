@@ -1,0 +1,25 @@
+# Experiment data and working files stay local; they are inputs to the tool, not part of it.
+*.xls
+kineticanalysistableresults*.csv
+bli2prism_setup*.xlsx
+blank.prism
+rebuild/
+
+# Excel / macOS lock and metadata files
+~$*
+.DS_Store
+
+# Python and test tooling
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# build output from `pip install` / `pip wheel`
+build/
+dist/
+*.egg-info/
+
+# ...but the dummy demo experiment (simulated data, no real data) is meant to be published
+!examples/**/*.xls
+!examples/**/kineticanalysistableresults*.csv
+!examples/**/bli2prism_setup*.xlsx

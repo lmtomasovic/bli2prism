@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bli2prism"
+version = "0.1.0"
+description = "Octet/BLI exports to GraphPad Prism projects, an Excel workbook and a QC report"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "openpyxl",
+    "numpy",
+    "scipy",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+bli2prism = "bli2prism.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["bli2prism*"]
+
+[tool.setuptools.package-data]
+bli2prism = ["blueprint/*.prism"]
