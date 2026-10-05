@@ -107,3 +107,15 @@ def test_a_two_part_analyte_weighs_the_sum_of_its_parts():
     from bli2prism.workbook import analyte_mw
     an = [{"parts": ["P"], "mw": 20000}, {"parts": ["Q"], "mw": 30000}, {"parts": ["P", "Q"], "mw": 50000}]
     assert analyte_mw(an) == [20000.0, 30000.0, [0, 1]]       # the complex = the sum of the two single-protein analytes
+
+
+def test_the_first_data_sheets_are_the_equilibrium_tables(demo_run):
+    import json
+    import zipfile
+    code, _, err = run_cli("build", demo_run)
+    assert code == 0, err
+    z = zipfile.ZipFile(os.path.join(demo_run, "rebuild", "Demo binding experiment.prism"))
+    doc = json.loads(z.read("document.json"))
+    titles = [json.loads(z.read(f"data/sheets/{u}/sheet.json"))["title"] for u in doc["sheets"]["data"]]
+    assert titles[:3] == ["Binder A Equilibrium", "Binder B Equilibrium", "Kinetics Binder A - 1000 nM"]
+    assert [doc["sheetAttributesMap"][u]["title"] for u in doc["sheets"]["data"][:2]] == titles[:2]

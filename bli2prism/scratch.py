@@ -317,8 +317,14 @@ def _reshape_csv(text, n_cols):
 
 
 # ------------------------------------------------------------------------- the build
+def equilibrium_title(ligand):
+    """Title of a ligand's equilibrium data sheet in a from-scratch project."""
+    return f"{ligand} Equilibrium"
+
+
 def build_scratch(tables, ligands, labels, container=None, analytes=None):
-    """tables: {sheet title: csv lines}, as from rebuild.build_tables.
+    """tables: {sheet title: csv lines}, as from rebuild.build_tables (a ligand's equilibrium table is keyed by the ligand's
+    name; the sheet is titled equilibrium_title(ligand)).
 
     analytes: display names, one per analyte (1 to MAX_ANALYTES); default = the blueprint's 3.
     Returns (project, warnings). Sheets are named exactly as in the template-based build.
@@ -349,6 +355,10 @@ def build_scratch(tables, ligands, labels, container=None, analytes=None):
             for n in [n for n in bp.files if n.startswith(f"analyses/{a}/result_sheets/") and n.endswith(".json")]:
                 names += bp._sheet_files(bp.jget(n)["dataSheet"])
         umap = clone_group(bp, dst, names, replace=[(BP_LIGAND, lig)])
+        eq_path = f"data/sheets/{umap[block['eq_sheet']]}/sheet.json"
+        eq = dst.jget(eq_path)
+        eq["title"] = equilibrium_title(lig)
+        dst.jput(eq_path, eq)
         new_eq.append(umap[block["eq_sheet"]])
         new_analyses.append(umap[block["analysis"][0]])
         if analytes is not None:
@@ -388,6 +398,8 @@ def build_scratch(tables, ligands, labels, container=None, analytes=None):
     # point every table at its data
     idx = {_title_of_sheet(dst, u): u for u in doc["sheets"]["data"]}
     for title, lines in tables.items():
+        if title in ligands:
+            title = equilibrium_title(title)
         if title not in idx:
             raise ShapeError(f"no sheet titled {title!r} was created")
         dst.put_table(idx[title], lines)
