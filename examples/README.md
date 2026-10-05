@@ -31,8 +31,9 @@ Outputs go to `examples/demo_binder_screen/rebuild/`:
 - `Results.xlsx`: the Excel workbook (Equilibrium tabs, Kinetic KDs, KD summary);
 - `qc_report.html`: the QC report.
 
-`expected_output/` holds the `Results.xlsx` and `qc_report.html` that this data produces, for comparison. (The Prism project is
-not included: it has no graphs and is written by `build`.)
+`expected_output/` holds the `Demo binding experiment.prism`, `Results.xlsx` and `qc_report.html` that this data produces, for
+comparison. The Prism project has the equilibrium sheets first (`Binder A Equilibrium`, `Binder B Equilibrium`), then the
+kinetics sheets, and a nonlinear fit per ligand. It has no graphs: create them in Prism.
 
 With no `.prism` file in the folder, `build` writes a Prism project from scratch under the name in the *Prism output file* cell.
 To write into your own empty Prism project instead, save one from Prism with exactly that name, put it in the folder, and run

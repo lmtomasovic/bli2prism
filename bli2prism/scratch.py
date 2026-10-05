@@ -1,13 +1,13 @@
 """Build a Prism project with no user-supplied template.
 
-The data sheets and the fit analyses are plain JSON + CSV, so they are cloned from a bundled
-blueprint (the reference project with its graphs and layouts removed) with fresh UIDs, fresh
-fenIDs and the new titles. The shape is unlimited: any number of ligands and concentrations.
+The data sheets and the fit analyses are plain JSON + CSV, so they are cloned, with fresh UIDs,
+fresh fenIDs and the new titles, from the skeleton project bundled with the package,
+bli2prism/_resources/prism_skeleton.prism (built from simulated data, no graphs or layouts). The shape is unlimited: any number of ligands and concentrations.
 
 What is NOT written: graphs and layouts. Their binary files cannot be generated, so you
 create the graphs in Prism (they are linked to nothing here, so there is nothing to break).
 
-The container (document.json, info sheet, fonts) comes from the bundled blueprint, or from a
+The container (document.json, info sheet, fonts) comes from the bundled skeleton, or from a
 blank project you saved in Prism, in which case your Prism version's own skeleton is kept.
 """
 
@@ -21,11 +21,11 @@ import uuid
 
 from .shape import Project, ShapeError, UID_RE
 
-BLUEPRINT = os.path.join(os.path.dirname(__file__), "blueprint", "blueprint.prism")
+BLUEPRINT = os.path.join(os.path.dirname(__file__), "_resources", "prism_skeleton.prism")
 LOWER_UUID = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
 NS = uuid.UUID("6f1c2f5e-9d4b-4c52-8f3e-0b1a7d3c9e11")
 
-# blueprint objects that get cloned
+# skeleton objects that get cloned
 BP_LIGAND = "Binder A"
 BP_KINETICS = "Kinetics Binder A - 1000 nM"
 MAX_ANALYTES = 7
@@ -326,7 +326,7 @@ def build_scratch(tables, ligands, labels, container=None, analytes=None):
     """tables: {sheet title: csv lines}, as from rebuild.build_tables (a ligand's equilibrium table is keyed by the ligand's
     name; the sheet is titled equilibrium_title(ligand)).
 
-    analytes: display names, one per analyte (1 to MAX_ANALYTES); default = the blueprint's 3.
+    analytes: display names, one per analyte (1 to MAX_ANALYTES); default = the skeleton's 3.
     Returns (project, warnings). Sheets are named exactly as in the template-based build.
     """
     if analytes is not None and not 1 <= len(analytes) <= MAX_ANALYTES:
@@ -344,7 +344,7 @@ def build_scratch(tables, ligands, labels, container=None, analytes=None):
     wipe_sheets(dst)
     block = bp.ligand_blocks()[0]
     if block["ligand"] != BP_LIGAND:
-        raise ShapeError("bundled blueprint is not the expected project")
+        raise ShapeError("bundled skeleton is not the expected project")
     kin_uid = next(k for k, _ in block["kinetics"] if _title_of_sheet(bp, k) == BP_KINETICS)
 
     new_eq, new_analyses, new_kin, new_results = [], [], [], []

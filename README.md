@@ -79,6 +79,13 @@ concentration).
   ligands or concentrations); it cannot add more than the template holds, and layouts are dropped when the shape shrinks.
   Exactly 3 analytes.
 
+### The bundled skeleton
+
+Prism's project format is undocumented, so the from-scratch build does not write a project from nothing: it clones the data
+sheets and fit analyses of a small bundled project, `bli2prism/_resources/prism_skeleton.prism` (simulated data, no graphs), and
+fills the clones with your tables. It is an internal resource, not an example. For an example of the output, see
+`examples/demo_binder_screen/expected_output/Demo binding experiment.prism`.
+
 ## How the numbers are made
 
 - **Equilibrium KD**: the EC50 of the fixed-slope sigmoid `Y = Bottom + (Top - Bottom) / (1 + 10^(LogEC50 - X))` (the fit the
@@ -109,6 +116,7 @@ The tests run on the simulated demo experiment only.
 
 ```
 bli2prism/       package (cli, setup sheet, data layer, Prism writer, workbook, QC, fits, formula evaluator)
+bli2prism/_resources/prism_skeleton.prism   the skeleton the from-scratch build copies its data sheets and fit analyses from (see below)
 examples/        the demo experiment and its generator (make_example.py)
 tests/
 ```

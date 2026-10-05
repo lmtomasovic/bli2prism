@@ -26,4 +26,4 @@ bli2prism = "bli2prism.cli:main"
 include = ["bli2prism*"]
 
 [tool.setuptools.package-data]
-bli2prism = ["blueprint/*.prism"]
+bli2prism = ["_resources/*.prism"]
