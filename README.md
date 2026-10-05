@@ -40,6 +40,15 @@ What the demo gives you, as drawn in the HTML QC report (`rebuild/qc_report.html
 them. These are the QC report's figures, drawn by the tool from simulated data. The Prism project has the same data and fits
 but no graphs: you make those in Prism.*
 
+And the Prism side: the same demo data in `Demo binding experiment.prism`, graphed in Prism. The project the tool writes has the
+data sheets and the nonlinear fits; the graphs below were made in Prism from them.
+
+![Prism graph of the Binder A Equilibrium sheet: response against concentration for the three analytes, with fitted curves](docs/images/prism_equilibrium_binder_a.png)
+
+![Prism graph of the Kinetics Binder A - 1000 nM sheet: association and dissociation traces for the three analytes](docs/images/prism_kinetics_binder_a_1000nM.png)
+
+*Graphs made in Prism from the `Binder A Equilibrium` and `Kinetics Binder A - 1000 nM` data sheets.*
+
 ## Your own experiment
 
 A run folder holds:
