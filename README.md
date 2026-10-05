@@ -112,3 +112,7 @@ bli2prism/       package (cli, setup sheet, data layer, Prism writer, workbook, 
 examples/        the demo experiment and its generator (make_example.py)
 tests/
 ```
+
+## License
+
+MIT, see `LICENSE`.

@@ -7,6 +7,7 @@ name = "bli2prism"
 version = "0.1.0"
 description = "Octet/BLI exports to GraphPad Prism projects, an Excel workbook and a QC report"
 readme = "README.md"
+license = {text = "MIT"}
 requires-python = ">=3.9"
 dependencies = [
     "openpyxl",
