@@ -30,6 +30,16 @@ bli2prism qc       examples/demo_binder_screen
 
 Outputs land in `examples/demo_binder_screen/rebuild/`: `Demo binding experiment.prism`, `Results.xlsx` and `qc_report.html`. Without installing: `python3 -m bli2prism ...` from the repo root.
 
+What the demo gives you, as drawn in the HTML QC report (`rebuild/qc_report.html`):
+
+![Equilibrium binding of Binder A to the three demo analytes, with the fitted sigmoids](docs/images/demo_equilibrium_binder_a.png)
+
+![Sensorgrams of Binder A against the three demo analytes at 8 concentrations](docs/images/demo_sensorgrams_binder_a.png)
+
+*Binder A: the equilibrium fits (Analyte Y binds tighter than Analyte X; Analyte Z does not bind) and the sensorgrams behind
+them. These are the QC report's figures, drawn by the tool from simulated data. The Prism project has the same data and fits
+but no graphs: you make those in Prism.*
+
 ## Your own experiment
 
 A run folder holds:
